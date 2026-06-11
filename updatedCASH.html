@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CashDrop Giveaway 💸</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght=300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold: #FFD700;
+  --gold2: #FFA500;
+  --dark: #0a0a0a;
+  --card: #111111;
+  --border: #222222;
+  --text: #ffffff;
+  --muted: #888888;
+  --red: #ff3333;
+  --green: #00cc66;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: var(--dark);
+  color: var(--text);
+  font-family: 'Outfit', sans-serif;
+  overflow-x: hidden;
+  background-image:
+    radial-gradient(ellipse at 10% 10%, #FFD70015 0%, transparent 50%),
+    radial-gradient(ellipse at 90% 90%, #FFA50010 0%, transparent 50%);
+}
+
+/* HERO */
+.hero {
+  text-align: center;
+  padding: 60px 20px 40px;
+  position: relative;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--gold), var(--gold2), transparent);
+}
+.badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #FFD700, #FFA500);
+  color: #000;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 4px 14px;
+  border-radius: 20px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 0 #FFD70066; }
+  50% { box-shadow: 0 0 0 10px #FFD70000; }
+}
+.hero h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3rem, 10vw, 6rem);
+  letter-spacing: 4px;
+  line-height: 1;
+  background: linear-gradient(135deg, #FFD700, #FFA500, #FFD700);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 12px;
+  cursor: pointer;
+  user-select: none;
+}
+.hero p {
+  color: var(--muted);
+  font-size: 1rem;
+  max-width: 400px;
+  margin: 0 auto 32px;
+  line-height: 1.6;
+}
+.money-rain {
+  font-size: 2rem;
+  letter-spacing: 8px;
+  margin-bottom: 8px;
+  animation: float 3s ease-in-out infinite;
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* NOTIFICATION POPUP */
+.notification-popup {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  background: #1a1a1a;
+  border: 1px solid var(--gold);
+  border-radius: 12px;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 9999;
+  max-width: 280px;
+  animation: slideIn 0.5s ease;
+  box-shadow: 0 4px 20px #FFD70022;
+}
+.notification-popup.hide {
+  animation: slideOut 0.5s ease forwards;
+}
+@keyframes slideIn {
+  from { transform: translateX(-120%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+@keyframes slideOut {
+  from { transform: translateX(0); opacity: 1; }
+  to { transform: translateX(-120%); opacity: 0; }
+}
+.notif-avatar {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #FFD700, #FFA500);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem;
+  flex-shrink: 0;
+  color: #000;
+  font-weight: 700;
+}
+.notif-text { font-size: 0.8rem; line-height: 1.4; }
+.notif-text strong { color: var(--gold); }
+.notif-text span { color: var(--muted); font-size: 0.72rem; }
+
+/* MAIN CARD */
+.container {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 0 16px 60px;
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 28px 22px;
+  margin-bottom: 20px;
+  position: relative;
+  overflow: hidden;
+}
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+.card h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.6rem;
+  letter-spacing: 2px;
+  color: var(--gold);
+  margin-bottom: 20px;
+}
+.form-group { margin-bottom: 14px; }
+label {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--muted);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+input, select {
+  width: 100%;
+  background: #0d0d0d;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 14px;
+  color: var(--text);
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border 0.2s;
+}
+input:focus, select:focus { border-color: var(--gold); }
+select option { background: #111; }
+
+.coupon-row {
+  display: flex;
+  gap: 10px;
+  align-items: flex-end;
+}
+.coupon-row .form-group { flex: 1; margin-bottom: 0; }
+
+/* BUTTONS */
+.btn-claim {
+  background: linear-gradient(135deg, #FFD700, #FFA500);
+  color: #000;
+  border: none;
+  border-radius: 12px;
+  padding: 15px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.2rem;
+  letter-spacing: 2px;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 10px;
+  transition: opacity 0.2s, transform 0.1s;
+  position: relative;
+}
+.btn-claim:hover { opacity: 0.9; }
+.btn-claim:active { transform: scale(0.98); }
+.btn-claim:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.btn-coupon {
+  background: var(--red);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: opacity 0.2s;
+  flex-shrink: 0;
+}
+.btn-coupon:hover { opacity: 0.85; }
+
+.msg {
+  text-align: center;
+  padding: 12px;
+  border-radius: 10px;
+  font-size: 0.88rem;
+  margin-top: 12px;
+  display: none;
+}
+.msg.success { background: #00cc6622; color: var(--green); border: 1px solid #00cc6633; display: block; }
+.msg.error { background: #ff333322; color: #ff6666; border: 1px solid #ff333333; display: block; }
+
+/* HOW IT WORKS */
+.steps {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.step {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px;
+  text-align: center;
+}
+.step-icon { font-size: 1.8rem; margin-bottom: 8px; }
+.step h4 { font-size: 0.85rem; font-weight: 600; margin-bottom: 4px; color: var(--gold); }
+.step p { font-size: 0.75rem; color: var(--muted); line-height: 1.4; }
+
+/* FAQ SECTION */
+.faq-section {
+  margin: 30px 0;
+}
+.faq-item {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+.faq-question {
+  padding: 14px 16px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--gold);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  user-select: none;
+}
+.faq-answer {
+  padding: 0 16px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, padding 0.3s ease;
+  font-size: 0.82rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+.faq-item.active .faq-answer {
+  padding: 0 16px 14px 16px;
+  max-height: 200px;
+}
+.faq-toggle-icon {
+  transition: transform 0.3s ease;
+}
+.faq-item.active .faq-toggle-icon {
+  transform: rotate(180deg);
+}
+
+/* TESTIMONIALS */
+.section-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.8rem;
+  letter-spacing: 3px;
+  text-align: center;
+  color: var(--gold);
+  margin-bottom: 16px;
+}
+.testimonial {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px;
+  margin-bottom: 12px;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+.testi-avatar {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #FFD700, #FFA500);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+  font-weight: 700;
+  color: #000;
+}
+.testi-name { font-weight: 600; font-size: 0.9rem; margin-bottom: 2px; }
+.testi-amount { color: var(--gold); font-size: 0.8rem; font-weight: 700; margin-bottom: 6px; }
+.testi-text { color: var(--muted); font-size: 0.82rem; line-height: 1.5; }
+.stars { color: var(--gold); font-size: 0.75rem; margin-bottom: 4px; }
+
+/* ADMIN PAGE */
+.admin-wrap {
+  display: none;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px 16px 60px;
+}
+.admin-wrap.active { display: block; }
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+.admin-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2rem;
+  letter-spacing: 3px;
+  color: var(--gold);
+}
+.btn-logout {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  border-radius: 8px;
+  padding: 8px 14px;
+  cursor: pointer;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.82rem;
+}
+.admin-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 22px;
+  margin-bottom: 20px;
+  position: relative;
+}
+.admin-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+.admin-card h3 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.3rem;
+  letter-spacing: 2px;
+  color: var(--gold);
+  margin-bottom: 16px;
+}
+.input-row { display: flex; gap: 10px; }
+.input-row .form-group { flex: 1; margin-bottom: 0; }
+.btn-create {
+  background: linear-gradient(135deg, #FFD700, #FFA500);
+  color: #000;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 18px;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  margin-top: 12px;
+  width: 100%;
+}
+.btn-export {
+  background: #1a1a1a;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  border-radius: 10px;
+  padding: 10px 18px;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  margin-bottom: 14px;
+  width: 100%;
+}
+.table-wrap { overflow-y: auto; max-height: 300px; border: 1px solid var(--border); border-radius: 8px; }
+table { width: 100%; border-collapse: collapse; font-size: 0.78rem; }
+th {
+  background: #1a1a1a;
+  color: var(--gold);
+  padding: 10px 8px;
+  text-align: left;
+  font-weight: 600;
+  white-space: nowrap;
+  position: sticky; top: 0; z-index: 10;
+}
+td {
+  padding: 10px 8px;
+  border-bottom: 1px solid var(--border);
+  color: var(--muted);
+  white-space: nowrap;
+}
+td:first-child { color: var(--text); }
+.badge-active { color: var(--green); font-weight: 600; }
+.badge-used { color: var(--red); font-weight: 600; }
+.empty-state {
+  text-align: center;
+  color: var(--muted);
+  padding: 30px;
+  font-size: 0.85rem;
+}
+
+/* LOGIN PAGE */
+.login-wrap {
+  display: none;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.login-wrap.active { display: flex; }
+.login-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 36px 28px;
+  width: 100%;
+  max-width: 360px;
+  text-align: center;
+}
+.login-card h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.8rem;
+  letter-spacing: 3px;
+  color: var(--gold);
+  margin-bottom: 6px;
+}
+.login-card p { color: var(--muted); font-size: 0.85rem; margin-bottom: 24px; }
+
+/* MODAL */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: #000000cc;
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.modal-overlay.active { display: flex; }
+.modal {
+  background: var(--card);
+  border: 1px solid var(--gold);
+  border-radius: 20px;
+  padding: 32px 24px;
+  max-width: 340px;
+  width: 100%;
+  text-align: center;
+  animation: popIn 0.3s ease;
+}
+@keyframes popIn {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+.modal h3 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.5rem;
+  letter-spacing: 2px;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+.modal p { color: var(--muted); font-size: 0.88rem; line-height: 1.6; margin-bottom: 20px; }
+.modal .whatsapp-num {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+.btn-whatsapp {
+  background: #25D366;
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  padding: 14px;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom: 10px;
+}
+.btn-close-modal {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  border-radius: 10px;
+  padding: 10px;
+  font-family: 'Outfit', sans-serif;
+  cursor: pointer;
+  width: 100%;
+  font-size: 0.85rem;
+}
+.spinner {
+  display: inline-block;
+  width: 14px; height: 14px;
+  border: 2px solid #000;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+  vertical-align: middle;
+  margin-right: 6px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* SUCCESS FULLSCREEN OVERLAY */
+.success-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: var(--dark);
+  z-index: 10000;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  text-align: center;
+  animation: slideUp 0.4s ease;
+}
+.success-overlay.active { display: flex; }
+.success-overlay h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.8rem;
+  color: var(--green);
+  margin-bottom: 15px;
+  letter-spacing: 2px;
+  line-height: 1.1;
+}
+.success-overlay p {
+  font-size: 1.15rem;
+  color: #ffffff;
+  line-height: 1.6;
+  max-width: 320px;
+  margin: 0 auto;
+}
+.success-overlay .amount-text {
+  color: var(--gold);
+  font-weight: 700;
+  font-size: 2rem;
+  display: inline-block;
+  margin: 8px 0;
+}
+.success-icon {
+  font-size: 4.5rem;
+  margin-bottom: 15px;
+  animation: bounce 2s infinite;
+}
+@keyframes slideUp {
+  from { transform: translateY(60px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+</style>
+</head>
+<body>
+
+<div class="success-overlay" id="successScreen">
+  <div class="success-icon">🎉✅</div>
+  <h1>TRANSACTION SUCCESSFUL</h1>
+  <p>The sum of <br><span class="amount-text" id="successAmount">₦0</span><br> has been sent to your account successfully!</p>
+  <button class="btn-claim" onclick="location.reload()" style="max-width: 240px; margin-top: 35px;">DONE</button>
+</div>
+
+<div class="modal-overlay" id="couponModal">
+  <div class="modal">
+    <div style="font-size:2.5rem; margin-bottom:10px;">💸</div>
+    <h3>GET YOUR COUPON</h3>
+    <p>Send your payment via WhatsApp and receive your coupon code instantly!</p>
+    <div class="whatsapp-num">+234 707 081 8332</div>
+    
+    <div class="form-group" style="text-align: left; margin-bottom: 15px;">
+      <label>Choose WhatsApp Type</label>
+      <select id="whatsappType">
+        <option value="messenger">WhatsApp Messenger</option>
+        <option value="business">WhatsApp Business</option>
+      </select>
+    </div>
+
+    <button class="btn-whatsapp" onclick="openWhatsApp()">
+      💬 Chat on WhatsApp
+    </button>
+    <button class="btn-close-modal" onclick="closeModal()">Maybe Later</button>
+  </div>
+</div>
+
+<div class="notification-popup" id="notifPopup" style="display:none;">
+  <div class="notif-avatar" id="notifAvatar">C</div>
+  <div class="notif-text">
+    <div id="notifMsg"><strong>Chukwuemeka</strong> just withdrew ₦20,000!</div>
+    <span>Just now • CashDrop Giveaway</span>
+  </div>
+</div>
+
+<div id="userPage">
+  <div class="hero">
+    <div class="badge">🔴 LIVE GIVEAWAY</div>
+    <div class="money-rain">💸💰💸</div>
+    <h1 onclick="handleLogoTap()">CASHDROP<br>GIVEAWAY</h1>
+    <p>Enter your coupon code and receive instant cash directly to your bank account!</p>
+  </div>
+
+  <div class="container">
+    <div class="steps">
+      <div class="step">
+        <div class="step-icon">🎟️</div>
+        <h4>Get Coupon</h4>
+        <p>Buy your coupon code via WhatsApp</p>
+      </div>
+      <div class="step">
+        <div class="step-icon">📝</div>
+        <h4>Fill Form</h4>
+        <p>Enter your bank details below</p>
+      </div>
+      <div class="step">
+        <div class="step-icon">✅</div>
+        <h4>Claim Cash</h4>
+        <p>Submit and wait for your alert</p>
+      </div>
+      <div class="step">
+        <div class="step-icon">🏦</div>
+        <h4>Get Paid</h4>
+        <p>Money sent directly to your bank</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>CLAIM YOUR CASH 💰</h2>
+
+      <div class="form-group">
+        <label>Full Name</label>
+        <input type="text" id="fullname" placeholder="e.g. Amaka Johnson">
+      </div>
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" id="email" placeholder="you@email.com">
+      </div>
+      <div class="form-group">
+        <label>Bank Name</label>
+        <select id="bank">
+          <option value="">Select your bank</option>
+          <option>Access Bank</option>
+          <option>First Bank</option>
+          <option>GTBank</option>
+          <option>UBA</option>
+          <option>Zenith Bank</option>
+          <option>Fidelity Bank</option>
+          <option>Union Bank</option>
+          <option>Sterling Bank</option>
+          <option>Wema Bank</option>
+          <option>Stanbic IBTC</option>
+          <option>FCMB</option>
+          <option>Keystone Bank</option>
+          <option>Polaris Bank</option>
+          <option>EcoBank</option>
+          <option>Moniepoint</option>
+          <option>OPay</option>
+          <option>PalmPay</option>
+          <option>Kuda Bank</option>
+          <option>Carbon</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Account Number</label>
+        <input type="text" id="accountNumber" placeholder="10-digit account number" maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+      </div>
+
+      <div style="margin-bottom:14px;">
+        <label>Coupon Code</label>
+        <div class="coupon-row">
+          <div class="form-group">
+            <input type="text" id="couponCode" placeholder="Enter coupon code" style="text-transform:uppercase; letter-spacing:2px;">
+          </div>
+          <button class="btn-coupon" onclick="openCouponModal()">🎟️ Get Coupon</button>
+        </div>
+      </div>
+
+      <button class="btn-claim" id="claimBtn" onclick="claimCoupon()">
+        CLAIM MY CASH 💰
+      </button>
+      <div class="msg" id="userMsg"></div>
+    </div>
+
+    <div class="section-title">FREQUENTLY ASKED QUESTIONS ❓</div>
+    <div class="faq-section">
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">How do I get a coupon code? <span class="faq-toggle-icon">▼</span></div>
+        <div class="faq-answer">You can get a coupon code instantly by clicking the "Get Coupon" button next to the input field, choosing your WhatsApp variant, and making a request directly to our desk officers.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">How long does the deposit alert take? <span class="faq-toggle-icon">▼</span></div>
+        <div class="faq-answer">Once your layout application parameters and coupon validation are approved, it typically takes between 4 to 10 minutes for full settlement processing to complete.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">Can I use a coupon code more than once? <span class="faq-toggle-icon">▼</span></div>
+        <div class="faq-answer">No, each individual code is securely cryptographically locked and hardcoded. Once validated, its status dynamically switches to USED and cannot be rerun.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">What banks are supported for transactions? <span class="faq-toggle-icon">▼</span></div>
+        <div class="faq-answer">We fully support all primary traditional commercial entities and structural digital banking providers across Nigeria (including Moniepoint, OPay, PalmPay, Kuda, and others).</div>
+      </div>
+    </div>
+
+    <div class="section-title">WINNERS SAY 🏆</div>
+
+    <div class="testimonial">
+      <div class="testi-avatar">A</div>
+      <div>
+        <div class="testi-name">Amaka Okafor</div>
+        <div class="testi-amount">Received ₦45,000</div>
+        <div class="stars">★★★★★</div>
+        <div class="testi-text">"I was skeptical at first but I received my alert within minutes! CashDrop is real and legit. Already told all my friends!"</div>
+      </div>
+    </div>
+
+    <div class="testimonial">
+      <div class="testi-avatar">E</div>
+      <div>
+        <div class="testi-name">Emeka Nwosu</div>
+        <div class="testi-amount">Received ₦25,000</div>
+        <div class="stars">★★★★★</div>
+        <div class="testi-text">"Got my coupon on WhatsApp and claimed instantly. Money entered my OPay in less than 5 minutes. God bless CashDrop!"</div>
+      </div>
+    </div>
+
+    <div class="testimonial">
+      <div class="testi-avatar">B</div>
+      <div>
+        <div class="testi-name">Blessing Adeyemi</div>
+        <div class="testi-amount">Received ₦60,000</div>
+        <div class="stars">★★★★★</div>
+        <div class="testi-text">"I have tried many giveaways online but this one is different. Real payment, real people. CashDrop changed my week!"</div>
+      </div>
+    </div>
+
+    <div class="testimonial">
+      <div class="testi-avatar">T</div>
+      <div>
+        <div class="testi-name">Tunde Fashola</div>
+        <div class="testi-amount">Received ₦15,000</div>
+        <div class="stars">★★★★★</div>
+        <div class="testi-text">"Simple process, fast payment. I claimed in the morning and my GTBank alert came before afternoon. Very impressive!"</div>
+      </div>
+    </div>
+
+    <div class="testimonial">
+      <div class="testi-avatar">N</div>
+      <div>
+        <div class="testi-name">Ngozi Chukwu</div>
+        <div class="testi-amount">Received ₦75,000</div>
+        <div class="stars">★★★★★</div>
+        <div class="testi-text">"My sister introduced me to CashDrop and I won big! The team is responsive on WhatsApp and payment was fast. 100% real!"</div>
+      </div>
+    </div>
+
+    <div class="testimonial">
+      <div class="testi-avatar">S</div>
+      <div>
+        <div class="testi-name">Seun Abiodun</div>
+        <div class="testi-amount">Received ₦30,000</div>
+        <div class="stars">★★★★★</div>
+        <div class="testi-text">"I bought my coupon on WhatsApp and got paid same day. This is the most legit giveaway I have ever seen online!"</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="login-wrap" id="loginPage">
+  <div class="login-card">
+    <div style="font-size:2rem; margin-bottom:8px;">🔐</div>
+    <h2>ADMIN LOGIN</h2>
+    <p>Authorized personnel only</p>
+    <div class="form-group" style="text-align:left;">
+      <label>Password</label>
+      <input type="password" id="adminPass" placeholder="Enter password">
+    </div>
+    <button class="btn-claim" onclick="adminLogin()" style="margin-top:10px;">LOGIN</button>
+    <div class="msg" id="loginMsg"></div>
+    <div style="margin-top:16px;">
+      <a href="#" onclick="showUser()" style="color:#333; font-size:0.8rem;">← Back to site</a>
+    </div>
+  </div>
+</div>
+
+<div class="admin-wrap" id="adminPage">
+  <div class="admin-header">
+    <div class="admin-title">⚡ ADMIN PANEL</div>
+    <button class="btn-logout" onclick="showUser()">Logout</button>
+  </div>
+
+  <div class="admin-card">
+    <h3>ALL COUPONS (<span id="couponCount">0</span>)</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Code</th>
+            <th>Amount</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="couponTableBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="admin-card">
+    <h3>ALL CLAIMS</h3>
+    <button class="btn-export" onclick="exportCSV()">📥 Export to CSV</button>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Bank</th>
+            <th>Account</th>
+            <th>Code</th>
+            <th>Amount</th>
+            <th>Time</th>
+          </tr>
+        </thead>
+        <tbody id="claimsTableBody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+// ========== CONFIG ==========
+const ADMIN_PASSWORD = 'Dove5656';
+const WHATSAPP_NUMBER = '2347070818332';
+const WHATSAPP_MESSAGE = encodeURIComponent("Hello, I want to buy a coupon code for CashDrop Giveaway. Please send me my coupon code and send your account details for the coupon code.");
+
+// ========== HARDCODED INITIAL COUPONS (200 CODES) ==========
+const SPECIAL_CODES = [
+  { code: "NIN20", amount: 4000 },
+  { code: "PELLER20", amount: 50000 },
+  { code: "NIN203", amount: 20000 },
+  { code: "GREAT674", amount: 2000 }
+];
+
+const AUTO_GENERATED_CODES = [
+  { code: "DROP125", amount: 3000 }, { code: "GIFT328", amount: 5000 }, { code: "DROP792", amount: 30000 }, { code: "DROP704", amount: 20000 },
+  { code: "CASH130", amount: 2000 }, { code: "GIFT338", amount: 30000 }, { code: "CASH674", amount: 6000 }, { code: "QUICK325", amount: 25000 },
+  { code: "PAY928", amount: 4000 }, { code: "WIN814", amount: 20000 }, { code: "DROPMAX384", amount: 7000 }, { code: "GIFT881", amount: 18000 },
+  { code: "DROP194", amount: 3000 }, { code: "DROP467", amount: 5000 }, { code: "PAY926", amount: 5000 }, { code: "ALERT649", amount: 7500 },
+  { code: "QUICK180", amount: 30000 }, { code: "PAY949", amount: 8000 }, { code: "DROPMAX691", amount: 12000 }, { code: "DROP146", amount: 2000 },
+  { code: "PAY181", amount: 12000 }, { code: "DROP489", amount: 4000 }, { code: "ALERT750", amount: 18000 }, { code: "WIN479", amount: 6000 },
+  { code: "GIFT786", amount: 15000 }, { code: "DROP723", amount: 10000 }, { code: "GIFT267", amount: 25000 }, { code: "QUICK376", amount: 30000 },
+  { code: "GIFT801", amount: 18000 }, { code: "CASH334", amount: 5000 }, { code: "DROPMAX510", amount: 2000 }, { code: "DROP316", amount: 35000 },
+  { code: "DROPMAX317", amount: 3000 }, { code: "QUICK758", amount: 25000 }, { code: "WIN371", amount: 7000 }, { code: "GIFT862", amount: 30000 },
+  { code: "PAY864", amount: 35000 }, { code: "QUICK697", amount: 20000 }, { code: "DROPMAX324", amount: 10000 }, { code: "ALERT193", amount: 4000 },
+  { code: "DROP256", amount: 10000 }, { code: "QUICK710", amount: 7500 }, { code: "QUICK490", amount: 35000 }, { code: "ALERT641", amount: 15000 },
+  { code: "CASH796", amount: 8000 }, { code: "PAY887", amount: 18000 }, { code: "DROP400", amount: 5000 }, { code: "WIN564", amount: 5000 },
+  { code: "PAY612", amount: 10000 }, { code: "DROP991", amount: 3000 }, { code: "GIFT256", amount: 18000 }, { code: "WIN652", amount: 30000 },
+  { code: "CASH713", amount: 18000 }, { code: "ALERT119", amount: 2000 }, { code: "DROPMAX999", amount: 15000 }, { code: "GIFT159", amount: 12000 },
+  { code: "DROP187", amount: 25000 }, { code: "DROP878", amount: 30000 }, { code: "WIN231", amount: 25000 }, { code: "QUICK316", amount: 30000 },
+  { code: "GIFT830", amount: 15000 }, { code: "QUICK787", amount: 18000 }, { code: "ALERT629", amount: 25000 }, { code: "DROP353", amount: 12000 },
+  { code: "DROP446", amount: 5000 }, { code: "GIFT702", amount: 12000 }, { code: "CASH172", amount: 5000 }, { code: "GIFT169", amount: 6000 },
+  { code: "DROPMAX172", amount: 30000 }, { code: "GIFT385", amount: 25000 }, { code: "GIFT652", amount: 10000 }, { code: "ALERT348", amount: 4000 },
+  { code: "QUICK294", amount: 7500 }, { code: "DROP774", amount: 20000 }, { code: "DROPMAX533", amount: 20000 }, { code: "ALERT984", amount: 7000 },
+  { code: "DROP162", amount: 20000 }, { code: "DROPMAX919", amount: 7500 }, { code: "GIFT296", amount: 12000 }, { code: "ALERT243", amount: 20000 },
+  { code: "WIN385", amount: 25000 }, { code: "GIFT995", amount: 7500 }, { code: "ALERT927", amount: 30000 }, { code: "DROP151", amount: 8000 },
+  { code: "CASH195", amount: 12000 }, { code: "WIN516", amount: 2000 }, { code: "ALERT318", amount: 20000 }, { code: "CASH268", amount: 20000 },
+  { code: "CASH499", amount: 15000 }, { code: "ALERT392", amount: 20000 }, { code: "ALERT258", amount: 12000 }, { code: "PAY322", amount: 5000 },
+  { code: "CASH865", amount: 18000 }, { code: "CASH151", amount: 35000 }, { code: "ALERT614", amount: 30000 }, { code: "WIN158", amount: 30000 },
+  { code: "DROP971", amount: 10000 }, { code: "DROP709", amount: 3000 }, { code: "GIFT513", amount: 7500 }, { code: "GIFT692", amount: 35000 },
+  { code: "CASH734", amount: 5000 }, { code: "QUICK773", amount: 35000 }, { code: "DROPMAX367", amount: 12000 }, { code: "DROPMAX344", amount: 15000 },
+  { code: "QUICK234", amount: 15000 }, { code: "ALERT423", amount: 6000 }, { code: "CASH569", amount: 35000 }, { code: "DROP175", amount: 30000 },
+  { code: "GIFT618", amount: 15000 }, { code: "WIN457", amount: 7500 }, { code: "GIFT478", amount: 15000 }, { code: "WIN548", amount: 30000 },
+  { code: "PAY726", amount: 30000 }, { code: "CASH783", amount: 30000 }, { code: "PAY779", amount: 2000 }, { code: "WIN370", amount: 4000 },
+  { code: "DROP860", amount: 30000 }, { code: "WIN378", amount: 15000 }, { code: "GIFT834", amount: 18000 }, { code: "GIFT803", amount: 15000 },
+  { code: "ALERT357", amount: 5000 }, { code: "DROP749", amount: 20000 }, { code: "PAY145", amount: 5000 }, { code: "DROPMAX889", amount: 10000 },
+  { code: "PAY265", amount: 25000 }, { code: "QUICK674", amount: 7000 }, { code: "DROP177", amount: 10000 }, { code: "CASH954", amount: 18000 },
+  { code: "WIN540", amount: 10000 }, { code: "CASH415", amount: 18000 }, { code: "CASH466", amount: 12000 }, { code: "GIFT782", amount: 7500 },
+  { code: "DROPMAX898", amount: 30000 }, { code: "QUICK735", amount: 10000 }, { code: "GIFT985", amount: 10000 }, { code: "WIN522", amount: 5000 },
+  { code: "WIN854", amount: 18000 }, { code: "QUICK921", amount: 12000 }, { code: "PAY263", amount: 7500 }, { code: "QUICK993", amount: 8000 },
+  { code: "ALERT327", amount: 12000 }, { code: "ALERT458", amount: 15000 }, { code: "CASH775", amount: 12000 }, { code: "QUICK436", amount: 15000 },
+  { code: "DROP891", amount: 15000 }, { code: "DROPMAX756", amount: 30000 }, { code: "QUICK795", amount: 30000 }, { code: "DROPMAX128", amount: 3000 },
+  { code: "PAY282", amount: 35000 }, { code: "PAY139", amount: 5000 }, { code: "QUICK453", amount: 18000 }, { code: "QUICK720", amount: 30000 },
+  { code: "DROP494", amount: 35000 }, { code: "GIFT360", amount: 2000 }, { code: "QUICK101", amount: 30000 }, { code: "GIFT472", amount: 20000 },
+  { code: "DROP780", amount: 18000 }, { code: "DROPMAX779", amount: 4000 }, { code: "PAY619", amount: 15000 }, { code: "QUICK434", amount: 20000 },
+  { code: "PAY667", amount: 10000 }, { code: "GIFT530", amount: 20000 }, { code: "WIN730", amount: 35000 }, { code: "PAY515", amount: 30000 },
+  { code: "CASH411", amount: 15000 }, { code: "GIFT540", amount: 35000 }, { code: "DROPMAX576", amount: 25000 }, { code: "ALERT791", amount: 12000 },
+  { code: "ALERT912", amount: 10000 }, { code: "DROP390", amount: 30000 }, { code: "DROPMAX195", amount: 12000 }, { code: "PAY330", amount: 12000 },
+  { code: "WIN125", amount: 6000 }, { code: "GIFT586", amount: 35000 }, { code: "DROP566", amount: 20000 }, { code: "GIFT835", amount: 20000 },
+  { code: "ALERT509", amount: 12000 }, { code: "WIN771", amount: 5000 }, { code: "DROP897", amount: 20000 }, { code: "GIFT280", amount: 30000 },
+  { code: "ALERT151", amount: 30000 }, { code: "GIFT968", amount: 7000 }, { code: "ALERT236", amount: 25000 }, { code: "DROPMAX873", amount: 25000 },
+  { code: "QUICK950", amount: 30000 }, { code: "ALERT262", amount: 25000 }, { code: "ALERT365", amount: 12000 }, { code: "PAY884", amount: 30000 },
+  { code: "ALERT741", amount: 12000 }, { code: "PAY550", amount: 8000 }, { code: "PAY340", amount: 15000 }, { code: "DROPMAX427", amount: 30000 },
+  { code: "DROP241", amount: 10000 }, { code: "GIFT492", amount: 10000 }, { code: "GIFT165", amount: 20000 }, { code: "QUICK438", amount: 30000 }
+];
+
+// Combine special items and generated lists into standard storage structure
+const MASTER_COUPONS = [...SPECIAL_CODES, ...AUTO_GENERATED_CODES];
+
+// ========== LOGO TAP ENGINE ==========
+let logoTapCount = 0;
+let logoTapTimeout;
+function handleLogoTap() {
+  logoTapCount++;
+  clearTimeout(logoTapTimeout);
+  if (logoTapCount >= 5) {
+    logoTapCount = 0;
+    showLogin();
+  } else {
+    logoTapTimeout = setTimeout(() => { logoTapCount = 0; }, 2000);
+  }
+}
+
+// ========== FAQ COMPONENT TOGGLE ==========
+function toggleFaq(element) {
+  const parent = element.parentElement;
+  parent.classList.toggle('active');
+}
+
+// ========== STORAGE HANDLERS ==========
+function getCoupons() {
+  try {
+    let stored = localStorage.getItem('cd_coupons_v3');
+    if (!stored) {
+      // Map master configurations seamlessly
+      const initialList = MASTER_COUPONS.map(c => ({
+        code: c.code,
+        amount: c.amount,
+        used: false,
+        usedBy: null,
+        createdAt: "System Hardcode"
+      }));
+      saveCoupons(initialList);
+      return initialList;
+    }
+    let parsed = JSON.parse(stored);
+    
+    // Safety sync: check if any master item is missing from active localStorage context
+    let missingAdded = false;
+    MASTER_COUPONS.forEach(mc => {
+      if (!parsed.find(p => p.code === mc.code)) {
+        parsed.unshift({ code: mc.code, amount: mc.amount, used: false, usedBy: null, createdAt: "System Sync" });
+        missingAdded = true;
+      }
+    });
+    if (missingAdded) saveCoupons(parsed);
+    
+    return parsed;
+  } catch(e) {
+    return [];
+  }
+}
+function saveCoupons(c) { localStorage.setItem('cd_coupons_v3', JSON.stringify(c)); }
+function getClaims() { try { return JSON.parse(localStorage.getItem('cd_claims') || '[]'); } catch(e) { return []; } }
+function saveClaims(c) { localStorage.setItem('cd_claims', JSON.stringify(c)); }
+
+// ========== NAVIGATION ==========
+function showUser() {
+  document.getElementById('userPage').style.display = 'block';
+  document.getElementById('loginPage').classList.remove('active');
+  document.getElementById('adminPage').classList.remove('active');
+}
+function showLogin() {
+  document.getElementById('userPage').style.display = 'none';
+  document.getElementById('loginPage').classList.add('active');
+  document.getElementById('adminPage').classList.remove('active');
+  document.getElementById('adminPass').value = '';
+}
+function showAdmin() {
+  document.getElementById('userPage').style.display = 'none';
+  document.getElementById('loginPage').classList.remove('active');
+  document.getElementById('adminPage').classList.add('active');
+  renderCoupons();
+  renderClaims();
+}
+
+// ========== ADMIN LOGIN ==========
+function adminLogin() {
+  const pass = document.getElementById('adminPass').value;
+  if (pass === ADMIN_PASSWORD) {
+    showAdmin();
+  } else {
+    showMsg('loginMsg', '❌ Wrong password!', 'error');
+  }
+}
+
+// ========== MODAL SELECTOR LOGIC ==========
+function openCouponModal() {
+  document.getElementById('couponModal').classList.add('active');
+}
+function closeModal() {
+  document.getElementById('couponModal').classList.remove('active');
+}
+function openWhatsApp() {
+  const type = document.getElementById('whatsappType').value;
+  let url = "";
+  if (type === "business") {
+    url = `https://api.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${WHATSAPP_MESSAGE}`;
+  } else {
+    url = `https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MESSAGE}`;
+  }
+  window.open(url, '_blank');
+  closeModal();
+}
+
+// ========== RENDER COUPONS ==========
+function renderCoupons() {
+  const body = document.getElementById('couponTableBody');
+  const coupons = getCoupons();
+  document.getElementById('couponCount').textContent = coupons.length;
+  
+  if (coupons.length === 0) {
+    body.innerHTML = '<tr><td colspan="3" class="empty-state">No coupons created yet</td></tr>';
+    return;
+  }
+  body.innerHTML = coupons.map(c => `
+    <tr>
+      <td style="color:#FFD700; font-weight:700; letter-spacing:1px;">${c.code}</td>
+      <td>₦${c.amount.toLocaleString()}</td>
+      <td class="${c.used ? 'badge-used' : 'badge-active'}">${c.used ? '✗ USED' : '✓ Active'}</td>
+    </tr>
+  `).join('');
+}
+
+// ========== RENDER CLAIMS ==========
+function renderClaims() {
+  const body = document.getElementById('claimsTableBody');
+  const claims = getClaims();
+  if (claims.length === 0) {
+    body.innerHTML = '<tr><td colspan="7" class="empty-state">No claims yet</td></tr>';
+    return;
+  }
+  body.innerHTML = claims.map(c => `
+    <tr>
+      <td>${c.name}</td>
+      <td>${c.email}</td>
+      <td>${c.bank}</td>
+      <td>${c.account}</td>
+      <td style="color:#FFD700;">${c.code}</td>
+      <td style="color:#00cc66;">₦${c.amount.toLocaleString()}</td>
+      <td>${c.time}</td>
+    </tr>
+  `).join('');
+}
+
+// ========== EXPORT CSV ==========
+function exportCSV() {
+  const claims = getClaims();
+  if (claims.length === 0) return alert('No claims to export!');
+  const headers = ['Name', 'Email', 'Bank', 'Account Number', 'Coupon Code', 'Amount', 'Time'];
+  const rows = claims.map(c => [c.name, c.email, c.bank, c.account, c.code, `NGN ${c.amount}`, c.time]);
+  const csv = [headers, ...rows].map(r => r.join(',')).join('\\n');
+  const blob = new Blob([csv], { type: 'text/csv' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `cashdrop-claims-${Date.now()}.csv`;
+  a.click();
+}
+
+// ========== CLAIM COUPON ==========
+function claimCoupon() {
+  const name = document.getElementById('fullname').value.trim();
+  const email = document.getElementById('email').value.trim().toLowerCase();
+  const bank = document.getElementById('bank').value;
+  const account = document.getElementById('accountNumber').value.trim();
+  const code = document.getElementById('couponCode').value.trim().toUpperCase();
+
+  if (!name || !email || !bank || !account || !code) {
+    return showMsg('userMsg', '❌ Please fill in all fields!', 'error');
+  }
+  if (account.length !== 10) {
+    return showMsg('userMsg', '❌ Account number must be exactly 10 digits!', 'error');
+  }
+  if (!email.includes('@')) {
+    return showMsg('userMsg', '❌ Please enter a valid email!', 'error');
+  }
+
+  // Validate coupon pool elements
+  const coupons = getCoupons();
+  const coupon = coupons.find(c => c.code === code);
+  if (!coupon) {
+    return showMsg('userMsg', '❌ Invalid coupon code! Contact admin on WhatsApp.', 'error');
+  }
+  if (coupon.used) {
+    return showMsg('userMsg', 'USED', 'error');
+  }
+
+  // Mark coupon as used safely
+  coupon.used = true;
+  coupon.usedBy = name;
+  saveCoupons(coupons);
+
+  // Append new unique client claim records object tracking parameters
+  const claims = getClaims();
+  claims.unshift({
+    name, email, bank, account, code,
+    amount: coupon.amount,
+    time: new Date().toLocaleString()
+  });
+  saveClaims(claims);
+
+  // Reset text inputs safely
+  document.getElementById('fullname').value = '';
+  document.getElementById('email').value = '';
+  document.getElementById('bank').value = '';
+  document.getElementById('accountNumber').value = '';
+  document.getElementById('couponCode').value = '';
+
+  // Trigger Full Screen Success Overlay
+  document.getElementById('successAmount').textContent = `₦${coupon.amount.toLocaleString()}`;
+  document.getElementById('userPage').style.display = 'none';
+  document.getElementById('successScreen').classList.add('active');
+}
+
+// ========== SHOW MSG ==========
+function showMsg(id, text, type) {
+  const el = document.getElementById(id);
+  el.textContent = text;
+  el.className = `msg ${type}`;
+}
+
+// ========== POPUP NOTIFICATIONS ==========
+const notifNames = [
+  { name: 'Chukwuemeka', initial: 'C' }, { name: 'Amaka', initial: 'A' },
+  { name: 'Tunde', initial: 'T' }, { name: 'Blessing', initial: 'B' },
+  { name: 'Ngozi', initial: 'N' }, { name: 'Emeka', initial: 'E' },
+  { name: 'Seun', initial: 'S' }, { name: 'Chioma', initial: 'C' },
+  { name: 'Biodun', initial: 'B' }, { name: 'Kelechi', initial: 'K' },
+  { name: 'Funmilayo', initial: 'F' }, { name: 'Oluwaseun', initial: 'O' },
+  { name: 'Adaeze', initial: 'A' }, { name: 'Taiwo', initial: 'T' },
+  { name: 'Ifeanyi', initial: 'I' }, { name: 'Precious', initial: 'P' },
+  { name: 'Chidi', initial: 'C' }, { name: 'Yetunde', initial: 'Y' },
+  { name: 'Obinna', initial: 'O' }, { name: 'Sade', initial: 'S' }
+];
+const amounts = [5000, 8000, 10000, 12000, 15000, 18000, 20000, 25000, 30000, 35000, 40000, 45000, 50000, 60000, 75000, 80000];
+
+function showNotification() {
+  const popup = document.getElementById('notifPopup');
+  const person = notifNames[Math.floor(Math.random() * notifNames.length)];
+  const amount = amounts[Math.floor(Math.random() * amounts.length)];
+  document.getElementById('notifAvatar').textContent = person.initial;
+  document.getElementById('notifMsg').innerHTML = `<strong>${person.name}</strong> just withdrew ₦${amount.toLocaleString()}!`;
+  popup.style.display = 'flex';
+  popup.classList.remove('hide');
+  setTimeout(() => {
+    popup.classList.add('hide');
+    setTimeout(() => { popup.style.display = 'none'; }, 500);
+  }, 3500);
+}
+
+// Start notifications after 3 seconds, then run precisely every 1 minute (60,000 milliseconds)
+setTimeout(() => {
+  showNotification();
+  setInterval(showNotification, 60000);
+}, 3000);
+
+// Initialize initial coupons lists into memory cache automatically
+getCoupons();
+</script>
+</body>
+</html>
